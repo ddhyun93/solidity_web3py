@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT License
-pragma solidity ^0.6.0;
+pragma solidity >=0.4.22 <0.9.0;
 
 contract BallotV1 {
     // types
@@ -49,7 +49,7 @@ contract BallotV1 {
     function register(address voter) public validPhase(Phase.Regs) onlyChair {
         require(!voters[voter].voted);                  // if executor is not chairperson, voter already voted -> revert
         // if (voters[voter].voted) revert();
-        require(msg.sender != chairperson)              // chairperson can not register by self
+        require(msg.sender != chairperson);             // chairperson can not register by self
         voters[voter].weight = 1;
         voters[voter].voted = false;
     }
