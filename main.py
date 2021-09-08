@@ -36,6 +36,5 @@ receipt = pprint.pformat(dict(contract_receipt))
 logging.info(f"Deploy Contract  :::::: {contract_id=} deploy to block address : {contract_address}")
 logging.info(f"Contract Receipt :::::: \n{receipt}")
 
-# store_var_contract = w3.eth.contract(address=contract_address,
-#                                      abi=contract_interface["abi"])
-
+# smart contract object to be called and interacted with
+contract = utils.get_contract(w3, contract_address, contract_interface['abi'])

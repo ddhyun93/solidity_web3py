@@ -40,3 +40,6 @@ def get_contract_address(w3: Web3, tx_hash):
     return address
 
 
+def get_contract(w3: Web3, address, abi):
+    registered_contract = w3.eth.contract(address=address, abi=abi)
+    return registered_contract
