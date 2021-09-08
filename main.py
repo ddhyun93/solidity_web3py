@@ -1,4 +1,5 @@
 import logging
+import pprint
 
 from web3 import Web3
 from deploy_functions import utils
@@ -23,9 +24,18 @@ _gas_limit = w3.eth.getBlock('latest').gasLimit
 
 # compile solidity source code
 COMPILED_SOL = utils.compile_source_code(utils.open_file(SOURCE_CODE_PATH))
+
 # deploy contract
 contract_id, contract_interface = COMPILED_SOL.popitem()
 w3.eth.defaultAccount = w3.eth.accounts[0]
-deployed_address = utils.deploy_contract(w3, contract_interface, _from, _gas_price, _gas_limit)
-logging.info(f'Deploy Contract :::::: {contract_id=} deploy to block address : {deployed_address}')
+deployed_contract = utils.deploy_contract(w3, contract_interface, _from, _gas_price, _gas_limit)
+contract_receipt = utils.get_transaction_receipt(w3, deployed_contract)
+contract_address = contract_receipt.get("contractAddress")
+receipt = pprint.pformat(dict(contract_receipt))
+
+logging.info(f"Deploy Contract  :::::: {contract_id=} deploy to block address : {contract_address}")
+logging.info(f"Contract Receipt :::::: \n{receipt}")
+
+# store_var_contract = w3.eth.contract(address=contract_address,
+#                                      abi=contract_interface["abi"])
 
