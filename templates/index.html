@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>FastAPI - MetaMask</title>
+  </head>
+  <body>
+    <h1>Hello Ethereum</h1>
+  </body>
+    <script>
+        if (typeof window.ethereum !== 'undefined') {
+            document.write('MetaMask is installed!');
+        } else {
+            document.write('MetaMask is not installed!');
+        }
+    </script>
+
+    <br>
+    isMetamask: <script>if(ethereum.isMetaMask){document.write('True')} else {document.write('False')}</script>
+    <br>
+
+</html>
