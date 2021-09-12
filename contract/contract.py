@@ -1,3 +1,4 @@
+import os, sys
 import logging
 import pprint
 
@@ -10,7 +11,8 @@ logging.basicConfig(format='[%(asctime)s] >> %(message)s', level=logging.INFO)
 # test connection with Ganache network
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:7545'))
 
-SOURCE_CODE_PATH = "../sol/Ballot.sol"
+# SOURCE_CODE_PATH = "../sol/Ballot.sol"        # using when deploy
+SOURCE_CODE_PATH = "./sol/Ballot.sol"        # using when interact with API
 
 '''
 details about gas ; refer https://steemit.com/kr/@jinkim/gas-gas-limit-block-gas-limit-gas-price-total-fee
