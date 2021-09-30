@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request, Body, Query
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from contract.contract import registered_contract
+from contract.contract import registered_contract, w3
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
@@ -23,10 +23,24 @@ async def conn_metamask(request: Request):
     return templates.TemplateResponse("connectiong.html", {"request": request})
 
 
+@app.get("/state")
+async def get_state():
+    state = "state"
+    state_func = registered_contract.functions[state]
+    return state_func().call()
+
+
+@app.post("/state")
+async def change_state():
+    registered_contract.functions.changeState(2).transact()
+    return registered_contract.functions.state().call()
+
+
 @app.post("/register")
 async def register_account():
-    a = registered_contract.functions.register("0x7A0F1Ce6c65Ba1468CFf871A4A1f308Bf99FE423").transact()
-    return a
+    print(registered_contract.functions.state().call())
+    registered_contract.functions.register(w3.eth.accounts[2]).transact({"from": w3.eth.coinbase})
+    return 200
     # return registered_contract.all_functions()
 
 

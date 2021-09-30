@@ -50,7 +50,7 @@ contract BallotV1 {
     function register(address voter) public validPhase(Phase.Regs) onlyChair {
         require(!voters[voter].voted);                  // if executor is not chairperson, voter already voted -> revert
         // if (voters[voter].voted) revert();
-        require(msg.sender != chairperson);             // chairperson can not register by self
+        require(voter != chairperson);             // chairperson can not register by self
         voters[voter].weight = 1;
         voters[voter].voted = false;
     }
